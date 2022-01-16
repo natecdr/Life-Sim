@@ -10,18 +10,19 @@ public class Creature : MonoBehaviour
     void Start()
     {
         creatureTransform = gameObject.GetComponent<Transform>();
-        List<Neuron> inputs = new List<Neuron>();
-        List<Neuron> outputs = new List<Neuron>();
-
-        brain = new Brain(this, inputs, outputs);
+        this.brain = new Brain(this);
     }
     
 
     // Update is called once per frame
     void Update()
     {
-        this.MoveForward();
-        this.Turn(50);
+        this.brain.Act();
+        //Debug.Log(Vector2.Distance(this.creatureTransform.position,Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+        this.brain.inputs[0].UpdateInput(Vector2.Distance(this.creatureTransform.position,Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+
+        Debug.Log(this.brain.inputs[0].CalculateOutput() * this.brain.inputs[0].outputs[0].weight);
+        Debug.Log("Weight : " + this.brain.inputs[0].outputs[0].weight);
     }
 
     public void MoveForward() {

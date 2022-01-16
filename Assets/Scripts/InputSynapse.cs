@@ -4,16 +4,16 @@ using UnityEngine;
 using System;
 
 public class InputSynapse : ISynapse{
-  internal Neuron toNeuron;
+  internal InputNeuron toNeuron;
   public double weight {get; set;}
   public double output {get; set;}
 
-  public InputSynapse(Neuron toNeuron) {
+  public InputSynapse(InputNeuron toNeuron) {
     this.toNeuron = toNeuron;
     this.weight = 1;
   }
 
-  public InputSynapse(Neuron toNeuron, double output) {
+  public InputSynapse(InputNeuron toNeuron, double output) {
     this.toNeuron = toNeuron;
     this.output = output;
     this.weight = 1;

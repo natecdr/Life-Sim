@@ -5,4 +5,5 @@ using System;
 
 public interface IInputFunction {
   double CalculateInput(List<ISynapse> inputSynapses);
+  double CalculateInput(InputSynapse inputSynapse);
 }

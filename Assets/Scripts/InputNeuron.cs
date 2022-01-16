@@ -3,38 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Neuron : INeuron
+public class InputNeuron : INeuron
 {
     public Guid Id { get; private set; }
     public string name;
-    public List<ISynapse> inputs {get; set;}
+    public InputSynapse input {get; set;}
     public List<ISynapse> outputs {get; set;}
-    private List<ISynapse> inputSynapses;
     public IActivationFunction activationFunction;
     public IInputFunction inputFunction;
 
-    public Neuron(IActivationFunction activationFunction, IInputFunction inputFunction) {
+    public InputNeuron(IActivationFunction activationFunction, IInputFunction inputFunction) {
         this.Id = Guid.NewGuid();
         this.name = Id.ToString();
-        this.inputs = new List<ISynapse>();
+        this.input = new InputSynapse(this);
         this.outputs = new List<ISynapse>();
         this.activationFunction = activationFunction;
         this.inputFunction = inputFunction;
     }
 
-    public Neuron(IActivationFunction activationFunction, IInputFunction inputFunction, String name) {
+    public InputNeuron(IActivationFunction activationFunction, IInputFunction inputFunction, String name) {
         this.Id = Guid.NewGuid();
         this.name = name;
-        this.inputs = new List<ISynapse>();
+        this.input = new InputSynapse(this);
         this.outputs = new List<ISynapse>();
         this.activationFunction = activationFunction;
         this.inputFunction = inputFunction;
     }
 
-    public void AddInputNeuron(Neuron inputNeuron) {
-        ISynapse synapse = new Synapse(inputNeuron, this);
-        this.inputs.Add(synapse);
-        inputNeuron.outputs.Add(synapse);
+    public void UpdateInput(Double inputValue) { 
+        this.input = new InputSynapse(this, inputValue);
     }
 
     public void AddOutputNeuron(Neuron outputNeuron) {
@@ -43,7 +40,12 @@ public class Neuron : INeuron
         outputNeuron.inputs.Add(synapse);
     }
 
+    public void SetInputSynapse(double inputValue) {
+        InputSynapse inputSynapse = new InputSynapse(this, inputValue);
+        this.input = inputSynapse; 
+    }
+
     public double CalculateOutput() {
-        return this.activationFunction.CalculateOutput(inputFunction.CalculateInput(this.inputs));
+        return this.activationFunction.CalculateOutput(inputFunction.CalculateInput(this.input));
     }
 }

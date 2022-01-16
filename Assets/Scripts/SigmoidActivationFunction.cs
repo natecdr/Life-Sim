@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class SigmoidFunction : IActivationFunction {
+public class SigmoidActivationFunction : IActivationFunction {
   private double coefficient;
 
-  public SigmoidFunction(double coefficient) {
+  public SigmoidActivationFunction(double coefficient) {
     this.coefficient = coefficient;
   }
   public double CalculateOutput(double input) {

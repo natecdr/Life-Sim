@@ -8,4 +8,7 @@ public class WeightedSums : IInputFunction {
 	public double CalculateInput(List<ISynapse> inputSynapses) {
 		return inputSynapses.Select(x=>x.weight * x.GetOutput()).Sum();
 	}
+	public double CalculateInput(InputSynapse inputSynapse) {
+		return inputSynapse.GetOutput();
+	}
 }
