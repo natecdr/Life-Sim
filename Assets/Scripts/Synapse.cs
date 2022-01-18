@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class Synapse : ISynapse{
-	internal INeuron fromNeuron;
-	internal Neuron toNeuron;
+	public INeuron fromNeuron {get; set;}
+	public Neuron toNeuron {get; set;}
 
 	public double weight {get; set;}
 
@@ -20,8 +19,7 @@ public class Synapse : ISynapse{
 		this.fromNeuron = fromNeuron;
 		this.toNeuron = toNeuron;
 
-		System.Random tmpRandom = new System.Random();
-		this.weight = tmpRandom.NextDouble()*2-1;
+		this.weight = Random.Range(-1f, 1f);
 	}
 
 	public double GetOutput(){

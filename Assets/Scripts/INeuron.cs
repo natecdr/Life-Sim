@@ -6,7 +6,10 @@ using System;
 public interface INeuron
 {
     Guid Id { get; }
-    List<ISynapse> outputs { get; set; }
-    void AddOutputNeuron(Neuron inputNeuron);
+    List<Synapse> outputs { get; set; }
+    void AddOutputNeuron(Neuron outputNeuron);
+    void RemoveOutputNeuron(Neuron outputNeuron);
     double CalculateOutput();
+    bool IsConnected(Neuron neuron);
+    Synapse GetSynapse(Neuron neuron);
 }

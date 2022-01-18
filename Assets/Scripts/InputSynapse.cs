@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 public class InputSynapse : ISynapse{
-  internal InputNeuron toNeuron;
+  public INeuron toNeuron {get; set;}
   public double weight {get; set;}
   public double output {get; set;}
 

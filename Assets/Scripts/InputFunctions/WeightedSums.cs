@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 
 public class WeightedSums : IInputFunction {
-	public double CalculateInput(List<ISynapse> inputSynapses) {
+	public double CalculateInput(List<Synapse> inputSynapses) {
 		return inputSynapses.Select(x=>x.weight * x.GetOutput()).Sum();
 	}
 	public double CalculateInput(InputSynapse inputSynapse) {

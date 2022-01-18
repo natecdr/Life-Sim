@@ -4,6 +4,6 @@ using UnityEngine;
 using System;
 
 public interface IInputFunction {
-  double CalculateInput(List<ISynapse> inputSynapses);
+  double CalculateInput(List<Synapse> inputSynapses);
   double CalculateInput(InputSynapse inputSynapse);
 }
