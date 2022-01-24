@@ -8,7 +8,7 @@ public class Brain
     public List<InputNeuron> inputs;
     public List<Neuron> outputs;
     public List<Neuron> hiddenNeurons;
-    private List<Synapse> synapses;
+    public List<Synapse> synapses;
 
     public Brain(Creature creature, List<InputNeuron> inputs, List<Neuron> outputs){
         this.creature = creature;
@@ -26,13 +26,21 @@ public class Brain
         this.outputs = new List<Neuron>();
         this.synapses = new List<Synapse>();
 
-        this.inputs.Add(new InputNeuron(new RectifiedActivationFunction(), new WeightedSums(), "distanceToMouse"));
-        this.inputs.Add(new InputNeuron(new RectifiedActivationFunction(), new WeightedSums(), "test1"));
+        this.inputs.Add(new InputNeuron(new RectifiedActivationFunction(), new WeightedSums(), "distanceToClosestFood"));
+        this.inputs.Add(new InputNeuron(new LinearActivationFunction(), new WeightedSums(), "angleToClosestFood"));
 
         this.outputs.Add(new Neuron(new StepActivationFunction(0.5), new WeightedSums(), "avancer"));
 
         this.inputs[0].SetInputSynapse(0);
         this.inputs[1].SetInputSynapse(1);
+    }
+
+    public Brain(Creature creature, Brain parentBrain) {
+        this.creature = creature;
+        this.inputs = parentBrain.inputs;
+        this.hiddenNeurons = parentBrain.hiddenNeurons;
+        this.outputs = parentBrain.outputs;
+        this.synapses = parentBrain.synapses;
     }
 
     public void AddConnection(INeuron fromNeuron, Neuron toNeuron) {
@@ -56,7 +64,7 @@ public class Brain
     }
 
     public void Mutate() {
-        if (Random.Range(0f, 1f) > 0) {
+        if (Random.Range(0f, 1f) > 0.9) {
             int choice = Random.Range(0,4);
             switch(choice) {
                 case 0:
@@ -72,6 +80,7 @@ public class Brain
                     MutateRemoveConnection();
                     break;
             }
+            Mutate();
         }
     }
 
